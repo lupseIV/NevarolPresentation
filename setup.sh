@@ -25,8 +25,25 @@ echo ""
 echo "📦 Starting PostgreSQL database with Docker..."
 docker-compose up -d
 echo "⏳ Waiting for database to be ready..."
-sleep 5
-echo "✅ Database is running"
+echo "   This may take 30-60 seconds on first startup..."
+
+# Wait for PostgreSQL to be healthy using docker-compose healthcheck
+max_attempts=30
+attempt=0
+while [ $attempt -lt $max_attempts ]; do
+    if docker-compose exec -T postgres pg_isready -U ecommerce > /dev/null 2>&1; then
+        echo "✅ Database is ready and accepting connections"
+        break
+    fi
+    attempt=$((attempt + 1))
+    if [ $attempt -eq $max_attempts ]; then
+        echo "❌ Database failed to become ready after $max_attempts attempts"
+        echo "   Please check Docker logs: docker-compose logs postgres"
+        exit 1
+    fi
+    echo "   Attempt $attempt/$max_attempts - waiting..."
+    sleep 2
+done
 echo ""
 
 # Setup backend
