@@ -99,18 +99,22 @@ cd NevarolPresentation
 The easiest way to set up PostgreSQL is using Docker Compose:
 
 ```bash
-# Start PostgreSQL database
+# Start PostgreSQL database (Docker Compose v2)
+docker compose up -d
+
+# OR with Docker Compose v1
 docker-compose up -d
 
 # Wait for database to be ready (important!)
 # On first startup, PostgreSQL needs time to initialize
-docker-compose exec postgres pg_isready -U ecommerce
+docker compose exec postgres pg_isready -U ecommerce
+# OR: docker-compose exec postgres pg_isready -U ecommerce
 
 # Verify database is running
 docker ps
 ```
 
-**Note:** The database may take 30-60 seconds to be fully ready on first startup. Make sure to wait for it before running migrations.
+**Note:** The database may take 30-60 seconds to be fully ready on first startup. Make sure to wait for it before running migrations. The `setup.sh` script handles this automatically.
 
 Alternatively, install PostgreSQL manually on your system.
 

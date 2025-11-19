@@ -18,12 +18,22 @@ if ! command -v node &> /dev/null; then
     exit 1
 fi
 
+# Detect Docker Compose command (v1 or v2)
+if command -v docker-compose &> /dev/null; then
+    DOCKER_COMPOSE="docker-compose"
+elif docker compose version &> /dev/null; then
+    DOCKER_COMPOSE="docker compose"
+else
+    echo "❌ Docker Compose is not installed. Please install Docker Compose first."
+    exit 1
+fi
+
 echo "✅ Prerequisites check passed"
 echo ""
 
 # Start database
 echo "📦 Starting PostgreSQL database with Docker..."
-docker-compose up -d
+$DOCKER_COMPOSE up -d
 echo "⏳ Waiting for database to be ready..."
 echo "   This may take 30-60 seconds on first startup..."
 
@@ -31,14 +41,14 @@ echo "   This may take 30-60 seconds on first startup..."
 max_attempts=30
 attempt=0
 while [ $attempt -lt $max_attempts ]; do
-    if docker-compose exec -T postgres pg_isready -U ecommerce > /dev/null 2>&1; then
+    if $DOCKER_COMPOSE exec -T postgres pg_isready -U ecommerce > /dev/null 2>&1; then
         echo "✅ Database is ready and accepting connections"
         break
     fi
     attempt=$((attempt + 1))
     if [ $attempt -eq $max_attempts ]; then
         echo "❌ Database failed to become ready after $max_attempts attempts"
-        echo "   Please check Docker logs: docker-compose logs postgres"
+        echo "   Please check Docker logs: $DOCKER_COMPOSE logs postgres"
         exit 1
     fi
     echo "   Attempt $attempt/$max_attempts - waiting..."
