@@ -3,7 +3,7 @@ import { config } from "dotenv";
 import { resolve } from "path";
 
 // Load environment variables from .env file
-config({ path: resolve(__dirname, ".env") });
+config({ path: resolve(__dirname, ".env.example") });
 
 export default defineConfig({
   schema: "prisma/schema.prisma",
@@ -12,6 +12,6 @@ export default defineConfig({
   },
   engine: "classic",
   datasource: {
-    url: env("DATABASE_URL"),
+    url: "DATABASE_URL",
   },
 });
