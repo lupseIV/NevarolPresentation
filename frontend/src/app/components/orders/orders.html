@@ -1,0 +1,38 @@
+<div class="container">
+  <h1>My Orders</h1>
+  
+  @if (orders.length === 0) {
+    <p>You have no orders yet.</p>
+  } @else {
+    @for (order of orders; track order.id) {
+      <div class="card">
+        <h3>Order #{{ order.id }}</h3>
+        <p><strong>Date:</strong> {{ order.createdAt | date }}</p>
+        <p><strong>Status:</strong> {{ order.status }}</p>
+        <p><strong>Total:</strong> ${{ order.total.toFixed(2) }}</p>
+        
+        <h4>Items:</h4>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Quantity</th>
+              <th>Price</th>
+              <th>Subtotal</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (item of order.orderItems; track item.id) {
+              <tr>
+                <td>{{ item.product.name }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>${{ item.price }}</td>
+                <td>${{ (item.quantity * item.price).toFixed(2) }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  }
+</div>

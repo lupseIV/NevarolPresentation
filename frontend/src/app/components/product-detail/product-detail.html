@@ -1,0 +1,30 @@
+<div class="container">
+  @if (product) {
+    <div class="card">
+      <h1>{{ product.name }}</h1>
+      
+      @if (message) {
+        <div class="alert alert-success">{{ message }}</div>
+      }
+      
+      @if (product.imageUrl) {
+        <img [src]="product.imageUrl" [alt]="product.name" style="max-width: 400px;">
+      }
+      
+      <p>{{ product.description }}</p>
+      <h3 class="price">${{ product.price }}</h3>
+      <p><strong>In Stock:</strong> {{ product.stock }}</p>
+      
+      <div class="form-group">
+        <label>Quantity:</label>
+        <input type="number" [(ngModel)]="quantity" min="1" [max]="product.stock" style="width: 100px;">
+      </div>
+      
+      <button class="btn btn-primary" (click)="addToCart()" [disabled]="product.stock === 0">
+        Add to Cart
+      </button>
+    </div>
+  } @else {
+    <p>Loading...</p>
+  }
+</div>

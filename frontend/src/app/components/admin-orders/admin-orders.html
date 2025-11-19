@@ -1,0 +1,75 @@
+<div class="container">
+  <h1>Manage Orders</h1>
+  
+  @if (selectedOrder) {
+    <div class="card">
+      <h3>Order #{{ selectedOrder.id }}</h3>
+      <button class="btn" (click)="closeDetail()">Back to List</button>
+      
+      <p><strong>Customer:</strong> {{ selectedOrder.user.firstName }} {{ selectedOrder.user.lastName }} ({{ selectedOrder.user.email }})</p>
+      <p><strong>Date:</strong> {{ selectedOrder.createdAt | date }}</p>
+      <p><strong>Status:</strong> {{ selectedOrder.status }}</p>
+      <p><strong>Total:</strong> ${{ selectedOrder.total.toFixed(2) }}</p>
+      
+      <div class="form-group">
+        <label>Update Status:</label>
+        <select [(ngModel)]="selectedOrder.status" (change)="updateStatus(selectedOrder.id, selectedOrder.status)">
+          <option value="pending">Pending</option>
+          <option value="processing">Processing</option>
+          <option value="shipped">Shipped</option>
+          <option value="delivered">Delivered</option>
+          <option value="cancelled">Cancelled</option>
+        </select>
+      </div>
+      
+      <h4>Order Items:</h4>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Subtotal</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (item of selectedOrder.orderItems; track item.id) {
+            <tr>
+              <td>{{ item.product.name }}</td>
+              <td>{{ item.quantity }}</td>
+              <td>${{ item.price }}</td>
+              <td>${{ (item.quantity * item.price).toFixed(2) }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  } @else {
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Customer</th>
+          <th>Date</th>
+          <th>Status</th>
+          <th>Total</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (order of orders; track order.id) {
+          <tr>
+            <td>{{ order.id }}</td>
+            <td>{{ order.user.firstName }} {{ order.user.lastName }}</td>
+            <td>{{ order.createdAt | date:'short' }}</td>
+            <td>{{ order.status }}</td>
+            <td>${{ order.total.toFixed(2) }}</td>
+            <td>
+              <button class="btn btn-primary" (click)="viewOrder(order)">View Details</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>
