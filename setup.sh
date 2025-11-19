@@ -38,7 +38,10 @@ if [ ! -f .env ]; then
     echo "📝 Creating .env file from .env.example..."
     cp .env.example .env
     echo "✅ .env file created"
+else
+    echo "ℹ️  .env file already exists"
 fi
+echo ""
 
 npm install
 npm run prisma:generate
