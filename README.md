@@ -75,7 +75,21 @@ git clone <repository-url>
 cd NevarolPresentation
 ```
 
-### 2. Backend Setup
+### 2. Database Setup (Using Docker - Recommended)
+
+The easiest way to set up PostgreSQL is using Docker Compose:
+
+```bash
+# Start PostgreSQL database
+docker-compose up -d
+
+# Verify database is running
+docker ps
+```
+
+Alternatively, install PostgreSQL manually on your system.
+
+### 3. Backend Setup
 
 ```bash
 cd backend
@@ -83,10 +97,8 @@ cd backend
 # Install dependencies
 npm install
 
-# Copy environment file
-cp .env.example .env
-
-# Edit .env with your database and email credentials
+# The .env file is already configured for docker-compose setup
+# If you're using a different database, edit .env with your credentials
 # DATABASE_URL="postgresql://user:password@localhost:5432/ecommerce?schema=public"
 # SESSION_SECRET="your-secret-key"
 # EMAIL_HOST="smtp.gmail.com"
@@ -100,11 +112,15 @@ npm run prisma:generate
 # Run database migrations
 npm run prisma:migrate
 
-# Optionally, use Prisma Studio to add sample data
-npm run prisma:studio
+# Seed database with sample data (admin user + products)
+npm run seed
 ```
 
-### 3. Frontend Setup
+**Default Users Created by Seed:**
+- Admin: `admin@example.com` / `admin123`
+- User: `user@example.com` / `user123`
+
+### 4. Frontend Setup
 
 ```bash
 cd ../frontend
@@ -222,17 +238,22 @@ For email notifications to work, configure your email provider in `.env`:
 
 ## Sample Products
 
-Add products via the admin panel or Prisma Studio. Example product:
+The seed script (`npm run seed`) creates 12 sample products:
 
-```json
-{
-  "name": "Sample Product",
-  "description": "This is a sample product",
-  "price": 29.99,
-  "stock": 100,
-  "imageUrl": "https://via.placeholder.com/300"
-}
-```
+1. Laptop Pro - $1,299.99
+2. Wireless Mouse - $29.99
+3. Mechanical Keyboard - $89.99
+4. USB-C Hub - $49.99
+5. Webcam HD - $79.99
+6. Headphones - $199.99
+7. Monitor 27" - $399.99
+8. Desk Lamp - $34.99
+9. External SSD 1TB - $129.99
+10. Phone Stand - $19.99
+11. Wireless Charger - $24.99
+12. Laptop Sleeve - $22.99
+
+You can also add more products via the admin panel or Prisma Studio.
 
 ## Features Implemented
 

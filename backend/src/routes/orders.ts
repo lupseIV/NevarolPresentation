@@ -68,7 +68,7 @@ router.post('/checkout', requireAuth, async (req: Request, res: Response) => {
     // Calculate total and prepare order items
     let total = 0;
     const orderItemsData = req.session.cart.items.map(cartItem => {
-      const product = products.find(p => p.id === cartItem.productId);
+      const product = products.find((p: any) => p.id === cartItem.productId);
       if (!product) {
         throw new Error('Product not found');
       }
