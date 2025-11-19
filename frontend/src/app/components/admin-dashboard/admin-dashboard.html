@@ -1,0 +1,28 @@
+<div class="container">
+  <h1>Admin Dashboard</h1>
+  
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 2rem 0;">
+    <div class="card" style="text-align: center;">
+      <h3>{{ stats.totalUsers || 0 }}</h3>
+      <p>Total Users</p>
+    </div>
+    <div class="card" style="text-align: center;">
+      <h3>{{ stats.totalProducts || 0 }}</h3>
+      <p>Total Products</p>
+    </div>
+    <div class="card" style="text-align: center;">
+      <h3>{{ stats.totalOrders || 0 }}</h3>
+      <p>Total Orders</p>
+    </div>
+    <div class="card" style="text-align: center;">
+      <h3>${{ (stats.totalRevenue || 0).toFixed(2) }}</h3>
+      <p>Total Revenue</p>
+    </div>
+  </div>
+  
+  <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+    <a routerLink="/admin/users" class="btn btn-primary">Manage Users</a>
+    <a routerLink="/admin/products" class="btn btn-primary">Manage Products</a>
+    <a routerLink="/admin/orders" class="btn btn-primary">Manage Orders</a>
+  </div>
+</div>

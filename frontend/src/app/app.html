@@ -1,0 +1,23 @@
+<nav class="navbar">
+  <div class="container">
+    <a routerLink="/" class="logo">{{ title }}</a>
+    <div class="nav-links">
+      <a routerLink="/products">Products</a>
+      @if (authService.isLoggedIn) {
+        <a routerLink="/cart">Cart ({{ cartService.itemCount }})</a>
+        <a routerLink="/orders">My Orders</a>
+        @if (authService.isAdmin) {
+          <a routerLink="/admin">Admin</a>
+        }
+        <button (click)="logout()" class="btn btn-outline">Logout</button>
+      } @else {
+        <a routerLink="/login">Login</a>
+        <a routerLink="/register">Register</a>
+      }
+    </div>
+  </div>
+</nav>
+
+<main class="main-content">
+  <router-outlet></router-outlet>
+</main>

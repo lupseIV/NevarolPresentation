@@ -1,0 +1,35 @@
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
+import { Auth } from '../../services/auth';
+
+@Component({
+  selector: 'app-login',
+  standalone: true,
+  imports: [CommonModule, FormsModule, RouterLink],
+  templateUrl: './login.html',
+  styleUrls: ['./login.css']
+})
+export class Login {
+  email = '';
+  password = '';
+  error = '';
+
+  constructor(
+    private authService: Auth,
+    private router: Router
+  ) {}
+
+  onSubmit() {
+    this.error = '';
+    this.authService.login(this.email, this.password).subscribe({
+      next: () => {
+        this.router.navigate(['/products']);
+      },
+      error: (err) => {
+        this.error = err.error?.error || 'Login failed';
+      }
+    });
+  }
+}
