@@ -32,6 +32,14 @@ echo ""
 # Setup backend
 echo "🔧 Setting up backend..."
 cd backend
+
+# Create .env file from .env.example if it doesn't exist
+if [ ! -f .env ]; then
+    echo "📝 Creating .env file from .env.example..."
+    cp .env.example .env
+    echo "✅ .env file created"
+fi
+
 npm install
 npm run prisma:generate
 npm run prisma:migrate

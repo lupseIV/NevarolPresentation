@@ -97,7 +97,10 @@ cd backend
 # Install dependencies
 npm install
 
-# The .env file is already configured for docker-compose setup
+# Create .env file from .env.example (if it doesn't exist)
+# The .env.example file is already configured for docker-compose setup
+cp .env.example .env
+
 # If you're using a different database, edit .env with your credentials
 # DATABASE_URL="postgresql://user:password@localhost:5432/ecommerce?schema=public"
 # SESSION_SECRET="your-secret-key"
@@ -280,6 +283,12 @@ You can also add more products via the admin panel or Prisma Studio.
 - Database migrations are managed by Prisma
 
 ## Troubleshooting
+
+**Prisma generate errors (Missing DATABASE_URL):**
+- Ensure you have created a `.env` file in the `backend` directory
+- Copy from `.env.example`: `cp .env.example .env`
+- The `prisma.config.ts` file loads environment variables from `.env`
+- Verify DATABASE_URL is set correctly in `.env`
 
 **Database connection errors:**
 - Verify PostgreSQL is running
