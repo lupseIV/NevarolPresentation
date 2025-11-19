@@ -66,6 +66,8 @@ A full-stack e-commerce application built with Node.js, Express, PostgreSQL, Pri
 - PostgreSQL (v14 or higher)
 - npm or yarn
 
+> **⚠️ Important:** Before running the application, you must create a `.env` file in the `backend` directory by copying `.env.example`. This file contains the database credentials required for Prisma to connect to PostgreSQL. The automated setup script (`setup.sh`) handles this for you, or you can do it manually: `cp backend/.env.example backend/.env`
+
 ## Installation & Setup
 
 ### Quick Setup (Automated)
@@ -81,9 +83,10 @@ chmod +x setup.sh
 The script will:
 1. Start PostgreSQL database using Docker Compose
 2. Wait for the database to be fully ready (30-60 seconds on first run)
-3. Setup backend dependencies and run migrations
-4. Setup frontend dependencies
-5. Seed the database with sample data
+3. **Create `.env` file from `.env.example` (contains database credentials)**
+4. Setup backend dependencies and run migrations
+5. Setup frontend dependencies
+6. Seed the database with sample data
 
 ### Manual Setup
 
@@ -314,10 +317,13 @@ You can also add more products via the admin panel or Prisma Studio.
 ## Troubleshooting
 
 **Database authentication errors (P1000):**
+- **Most common cause**: Missing `.env` file in the `backend` directory
+  - Create it from `.env.example`: `cp backend/.env.example backend/.env`
+  - The `.env` file contains database credentials and is required for Prisma to connect
 - The database may not be ready yet after `docker-compose up -d`
-- PostgreSQL needs 30-60 seconds to initialize on first startup
-- Use the `setup.sh` script which properly waits for database readiness
-- Or manually wait: `docker-compose exec postgres pg_isready -U ecommerce`
+  - PostgreSQL needs 30-60 seconds to initialize on first startup
+  - Use the `setup.sh` script which properly waits for database readiness
+  - Or manually wait: `docker-compose exec postgres pg_isready -U ecommerce`
 - Ensure Docker container is running: `docker ps`
 
 **Prisma generate errors (Missing DATABASE_URL):**
