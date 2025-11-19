@@ -323,7 +323,7 @@ You can also add more products via the admin panel or Prisma Studio.
 **Prisma generate errors (Missing DATABASE_URL):**
 - Ensure you have created a `.env` file in the `backend` directory
 - Copy from `.env.example`: `cp .env.example .env`
-- The `prisma.config.ts` file loads environment variables from `.env`
+- Prisma loads environment variables from the `.env` file automatically
 - Verify DATABASE_URL is set correctly in `.env`
 
 **Database connection errors:**
