@@ -68,6 +68,25 @@ A full-stack e-commerce application built with Node.js, Express, PostgreSQL, Pri
 
 ## Installation & Setup
 
+### Quick Setup (Automated)
+
+The repository includes a `setup.sh` script that automates the entire setup process:
+
+```bash
+# Make sure Docker and Node.js are installed first
+chmod +x setup.sh
+./setup.sh
+```
+
+The script will:
+1. Start PostgreSQL database using Docker Compose
+2. Wait for the database to be fully ready (30-60 seconds on first run)
+3. Setup backend dependencies and run migrations
+4. Setup frontend dependencies
+5. Seed the database with sample data
+
+### Manual Setup
+
 ### 1. Clone the Repository
 
 ```bash
@@ -80,12 +99,22 @@ cd NevarolPresentation
 The easiest way to set up PostgreSQL is using Docker Compose:
 
 ```bash
-# Start PostgreSQL database
+# Start PostgreSQL database (Docker Compose v2)
+docker compose up -d
+
+# OR with Docker Compose v1
 docker-compose up -d
+
+# Wait for database to be ready (important!)
+# On first startup, PostgreSQL needs time to initialize
+docker compose exec postgres pg_isready -U ecommerce
+# OR: docker-compose exec postgres pg_isready -U ecommerce
 
 # Verify database is running
 docker ps
 ```
+
+**Note:** The database may take 30-60 seconds to be fully ready on first startup. Make sure to wait for it before running migrations. The `setup.sh` script handles this automatically.
 
 Alternatively, install PostgreSQL manually on your system.
 
@@ -283,6 +312,13 @@ You can also add more products via the admin panel or Prisma Studio.
 - Database migrations are managed by Prisma
 
 ## Troubleshooting
+
+**Database authentication errors (P1000):**
+- The database may not be ready yet after `docker-compose up -d`
+- PostgreSQL needs 30-60 seconds to initialize on first startup
+- Use the `setup.sh` script which properly waits for database readiness
+- Or manually wait: `docker-compose exec postgres pg_isready -U ecommerce`
+- Ensure Docker container is running: `docker ps`
 
 **Prisma generate errors (Missing DATABASE_URL):**
 - Ensure you have created a `.env` file in the `backend` directory
