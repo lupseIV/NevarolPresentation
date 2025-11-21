@@ -1,14 +1,16 @@
 <div class="container">
-  <div class="card" style="max-width: 600px; margin: 2rem auto;">
-    <h2>Checkout</h2>
+  <div class="card" style="max-width: 600px; margin: 3rem auto;">
+    <h2 style="margin-bottom: 1.5rem; text-align: center; font-size: 2rem; font-weight: 700; color: var(--text-primary);">Complete Your Order</h2>
     
     @if (error) {
       <div class="alert alert-error">{{ error }}</div>
     }
     
-    <p>Click below to complete your order. An email confirmation will be sent to you.</p>
+    <p style="text-align: center; color: var(--text-secondary); font-size: 1.125rem; margin-bottom: 2rem;">
+      Click below to complete your order. An email confirmation will be sent to you.
+    </p>
     
-    <button class="btn btn-success" (click)="completeOrder()" [disabled]="processing" style="width: 100%; margin-top: 1rem;">
+    <button class="btn btn-success" (click)="completeOrder()" [disabled]="processing" style="width: 100%; padding: 1rem; font-size: 1.125rem;">
       @if (processing) {
         Processing...
       } @else {
@@ -16,7 +18,7 @@
       }
     </button>
     
-    <a routerLink="/cart" class="btn" style="width: 100%; margin-top: 0.5rem; display: block; text-align: center;">
+    <a routerLink="/cart" class="btn" style="width: 100%; margin-top: 1rem; display: block; text-align: center; background-color: var(--light-bg); color: var(--text-primary); border: 1px solid var(--border-color); text-decoration: none;">
       Back to Cart
     </a>
   </div>
