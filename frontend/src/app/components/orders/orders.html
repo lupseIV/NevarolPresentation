@@ -1,17 +1,30 @@
 <div class="container">
-  <h1>My Orders</h1>
+  <h1 style="margin-bottom: 2rem; font-size: 2.5rem; font-weight: 700; color: var(--text-primary);">My Orders</h1>
   
   @if (orders.length === 0) {
-    <p>You have no orders yet.</p>
+    <div class="card" style="text-align: center; padding: 4rem 2rem;">
+      <p style="font-size: 1.25rem; color: var(--text-secondary); margin-bottom: 1.5rem;">You have no orders yet.</p>
+      <a routerLink="/products" class="btn btn-primary">Start Shopping</a>
+    </div>
   } @else {
     @for (order of orders; track order.id) {
-      <div class="card">
-        <h3>Order #{{ order.id }}</h3>
-        <p><strong>Date:</strong> {{ order.createdAt | date }}</p>
-        <p><strong>Status:</strong> {{ order.status }}</p>
-        <p><strong>Total:</strong> ${{ order.total.toFixed(2) }}</p>
+      <div class="card" style="margin-bottom: 2rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 2px solid var(--border-color);">
+          <div>
+            <h3 style="font-size: 1.5rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.5rem;">Order #{{ order.id }}</h3>
+            <p style="color: var(--text-secondary); font-size: 0.95rem;"><strong>Date:</strong> {{ order.createdAt | date }}</p>
+          </div>
+          <div style="text-align: right;">
+            <p style="margin-bottom: 0.5rem;">
+              <span style="display: inline-block; padding: 0.5rem 1rem; background-color: var(--primary-color); color: white; border-radius: 6px; font-weight: 500; font-size: 0.9rem;">
+                {{ order.status }}
+              </span>
+            </p>
+            <p style="font-size: 1.75rem; font-weight: 700; color: var(--secondary-color);">${{ order.total.toFixed(2) }}</p>
+          </div>
+        </div>
         
-        <h4>Items:</h4>
+        <h4 style="margin-bottom: 1rem; font-size: 1.125rem; color: var(--text-primary);">Order Items:</h4>
         <table class="table">
           <thead>
             <tr>
@@ -24,10 +37,10 @@
           <tbody>
             @for (item of order.orderItems; track item.id) {
               <tr>
-                <td>{{ item.product.name }}</td>
+                <td><strong>{{ item.product.name }}</strong></td>
                 <td>{{ item.quantity }}</td>
-                <td>${{ item.price }}</td>
-                <td>${{ (item.quantity * item.price).toFixed(2) }}</td>
+                <td style="color: var(--secondary-color); font-weight: 600;">${{ item.price }}</td>
+                <td style="font-weight: 600;">${{ (item.quantity * item.price).toFixed(2) }}</td>
               </tr>
             }
           </tbody>
