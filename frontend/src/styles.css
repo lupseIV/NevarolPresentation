@@ -406,3 +406,18 @@ html {
   outline: 2px solid var(--primary-color);
   outline-offset: 2px;
 }
+
+/* Product Detail Responsive Grid */
+.product-detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  margin-top: 2rem;
+}
+
+@media (max-width: 768px) {
+  .product-detail-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
