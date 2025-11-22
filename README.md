@@ -65,8 +65,11 @@ A full-stack e-commerce application built with Node.js, Express, PostgreSQL, Pri
 - Node.js (v18 or higher)
 - PostgreSQL (v14 or higher)
 - npm or yarn
+- Email account for notifications (Gmail, Outlook, etc.) - See [ENV_SETUP.md](ENV_SETUP.md)
 
 ## Installation & Setup
+
+**📖 For detailed environment configuration, see [ENV_SETUP.md](ENV_SETUP.md)**
 
 ### Quick Setup (Automated)
 
@@ -130,13 +133,14 @@ npm install
 # The .env.example file is already configured for docker-compose setup
 cp .env.example .env
 
-# If you're using a different database, edit .env with your credentials
-# DATABASE_URL="postgresql://user:password@localhost:5432/ecommerce?schema=public"
-# SESSION_SECRET="your-secret-key"
-# EMAIL_HOST="smtp.gmail.com"
-# EMAIL_PORT="587"
-# EMAIL_USER="your-email@gmail.com"
-# EMAIL_PASS="your-app-password"
+# Configure environment variables (IMPORTANT!)
+# See ENV_SETUP.md for detailed instructions on how to configure:
+# - SESSION_SECRET: Generate a secure random secret
+# - EMAIL_* variables: Set up email provider (Gmail, Outlook, etc.)
+# For quick setup guide: see ENV_SETUP.md
+# For default docker-compose setup, minimal changes needed:
+#   1. Generate SESSION_SECRET: node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+#   2. Configure email settings for order notifications (optional for development)
 
 # Generate Prisma client
 npm run prisma:generate
@@ -261,12 +265,27 @@ npm run prisma:studio
 
 ## Email Configuration
 
-For email notifications to work, configure your email provider in `.env`:
+For email notifications to work, configure your email provider in `.env`.
 
-**Gmail Example:**
-1. Enable 2-factor authentication
-2. Generate an App Password
-3. Use the app password in `EMAIL_PASS`
+**📖 For detailed setup instructions, see [ENV_SETUP.md](ENV_SETUP.md)**
+
+**Quick Gmail Setup:**
+1. Enable 2-factor authentication on your Google account
+2. Generate an App Password at https://myaccount.google.com/apppasswords
+3. Update `.env` with:
+   ```
+   EMAIL_HOST="smtp.gmail.com"
+   EMAIL_PORT="587"
+   EMAIL_USER="your-email@gmail.com"
+   EMAIL_PASS="your-16-char-app-password"
+   ```
+
+The ENV_SETUP.md guide includes:
+- Step-by-step instructions for Gmail, Outlook, Yahoo
+- How to generate a secure SESSION_SECRET
+- Alternative email providers (SendGrid, Mailgun, etc.)
+- Troubleshooting common email issues
+- Security best practices
 
 ## Sample Products
 

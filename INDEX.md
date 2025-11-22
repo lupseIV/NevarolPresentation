@@ -21,6 +21,19 @@ Welcome to the complete e-commerce application! This index will guide you throug
 
 ### Essential Reading
 
+- **[README.md](README.md)** - Setup and installation guide
+  - Prerequisites
+  - Quick setup with `setup.sh`
+  - Manual setup steps
+  - Running the application
+
+- **[ENV_SETUP.md](ENV_SETUP.md)** - Environment configuration guide ⚙️
+  - How to configure SESSION_SECRET
+  - Email setup (Gmail, Outlook, Yahoo)
+  - Alternative email providers
+  - Security best practices
+  - Troubleshooting
+
 - **[PROJECT_SUMMARY.md](PROJECT_SUMMARY.md)** - High-level project overview
   - Requirements fulfilled
   - Project structure
@@ -56,6 +69,7 @@ NevarolPresentation/
 ├── 📄 Documentation (You are here!)
 │   ├── INDEX.md                  # This file - Documentation guide
 │   ├── README.md                 # Setup and installation
+│   ├── ENV_SETUP.md              # Environment configuration guide
 │   ├── PROJECT_SUMMARY.md        # Project overview
 │   ├── FEATURE_CHECKLIST.md      # Complete feature list
 │   ├── ARCHITECTURE.md           # System architecture
@@ -90,6 +104,9 @@ NevarolPresentation/
 
 **Set up the application**
 → Go to [README.md](README.md) → Installation & Setup
+
+**Configure environment variables (SESSION_SECRET, EMAIL, etc.)**
+→ Go to [ENV_SETUP.md](ENV_SETUP.md)
 
 **Understand the architecture**
 → Go to [ARCHITECTURE.md](ARCHITECTURE.md)
@@ -215,6 +232,7 @@ npm run seed             # Seed sample data
 |------|---------|---------|
 | INDEX.md | Documentation guide (this file) | Everyone |
 | README.md | Setup and installation | Developers |
+| ENV_SETUP.md | Environment variable configuration | Developers |
 | PROJECT_SUMMARY.md | High-level overview | Stakeholders |
 | FEATURE_CHECKLIST.md | Complete feature list | QA/Testers |
 | ARCHITECTURE.md | Technical architecture | Architects/Developers |
